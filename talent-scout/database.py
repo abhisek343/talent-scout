@@ -60,17 +60,19 @@ def create_table(conn):
         cur.execute(
             """
             CREATE TABLE IF NOT EXISTS candidates (
-                email TEXT PRIMARY KEY,
-                name TEXT NOT NULL,
-                phone TEXT NOT NULL,
-                experience FLOAT NOT NULL,
-                location TEXT NOT NULL,
-                position TEXT NOT NULL,
-                tech_stack TEXT NOT NULL,
-                technical_answers JSONB,
-                evaluation JSONB,
-                embeddings JSONB,
-                timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    id UUID PRIMARY KEY,
+    email TEXT NOT NULL UNIQUE,
+    name TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    experience FLOAT NOT NULL,
+    location TEXT NOT NULL,
+    position TEXT NOT NULL,
+    tech_stack TEXT NOT NULL,
+    technical_answers JSONB,
+    evaluation JSONB,
+    embeddings JSONB,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
             );
             """
         )
@@ -93,9 +95,10 @@ def insert_candidate(conn, candidate_info):
             candidate_info["timestamp"] = datetime.now().isoformat()
         
         insert_query = """
-        INSERT INTO candidates (email, name, phone, experience, location, position, tech_stack, 
-                               technical_answers, evaluation, embeddings, timestamp)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        INSERT INTO candidates (id, email, name, phone, experience, location, position, tech_stack, 
+                        technical_answers, evaluation, embeddings, timestamp)
+
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s)
         """
         cur = conn.cursor()
 
@@ -118,6 +121,7 @@ def insert_candidate(conn, candidate_info):
             timestamp = datetime.fromisoformat(timestamp)
         
         cur.execute(insert_query, (
+            candidate_info.get("id"),
             candidate_info.get("email"),
             candidate_info.get("name"),
             candidate_info.get("phone"),
