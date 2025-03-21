@@ -1,0 +1,35 @@
+# Core Dependencies
+streamlit==1.43.2
+streamlit-extras==0.6.0
+openai==1.66.3
+langchain
+langchain-openai
+tenacity==8.5.0
+
+# Data Validation & Parsing
+email-validator==2.2.0
+phonenumbers==9.0.1
+pycountry==23.12.11
+pycountry-convert==0.7.2
+
+# Database Integration
+psycopg2-binary==2.9.6
+
+# Networking & API
+requests==2.31.0
+
+# Data Handling & Computation
+pandas==2.2.1
+numpy==1.26.4
+
+# Security & Encryption
+cryptography==42.0.7
+
+# UI Enhancements
+pillow==10.2.0
+emoji==2.11.0
+
+# Environment Variable Management
+python-dotenv==1.0.0
+#sentiment analysis
+textblob==0.17.1
